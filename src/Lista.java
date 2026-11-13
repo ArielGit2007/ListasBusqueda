@@ -7,7 +7,7 @@ public class Lista {
         libros=new ArrayList<>();
     }
 
-    public void agregarDatos(Libro dato) throws Exception {
+    /*public void agregarDatos(Libro dato) throws Exception {
         if(libros.isEmpty())
             libros.add(dato);
         else{
@@ -16,6 +16,36 @@ public class Lista {
             else
                 throw new Exception("Datos no ordenados o duplicados");
         }
+    }*/
+
+    public void agregarDatos(Libro dato) throws Exception {
+        if(unico(dato)) {
+            libros.add(dato);
+            ordenar();
+        }else
+            throw new Exception("No es unico");
+
+    }
+
+    public void ordenar(){
+        Libro aux;
+        for(int i=0; i<libros.size()-1;i++){
+            for(int j= i+1;j<libros.size();j++){
+                if(libros.get(i).getCodigo()>libros.get(j).getCodigo()){
+                    aux=libros.get(i);
+                    libros.set(i,libros.get(j));
+                    libros.set(j,aux);
+                }
+            }
+        }
+    }
+
+    public boolean unico(Libro dato){
+        for(Libro aux : libros){
+            if (aux.getCodigo()==dato.getCodigo())
+                return false;
+        }
+        return true;
     }
     public ArrayList<Libro> buscar(String texto){
         ArrayList<Libro> resultado=new ArrayList<>();
@@ -29,8 +59,8 @@ public class Lista {
     public Libro binario(int codigo) throws Exception {
         if(libros.isEmpty())
             throw new Exception("Lista vacia");
-        if(codigo<libros.getFirst().getCodigo()||codigo>libros.getLast().getCodigo())
-            throw new Exception("No existe libro con el codigo");
+        /*if(codigo<libros.getFirst().getCodigo()||codigo>libros.getLast().getCodigo())
+            throw new Exception("No existe libro con el codigo");*/
         int i=0;
         int s=libros.size()-1;
         while (i<=s){
